@@ -1,31 +1,42 @@
 # pic32-dev
 
-## PIC32MZ
+External libraries used in and with the project.
 
-- Piotr's prototype
-  
-## PIC32MX
+- ZLIB came from the github and was cloned using:
+
+```
+    $ git clone https://github.com/madler/zlib.git
+    $ ./configure; make test
+```
+
+- Unity for command format (http://www.throwtheswitch.org)
+
+
+## PIC32MX795
 
 - 80 MHz/105 DMIPS performance
-- Up to 512 KB Flash and up to 128 KB RAM
+- Program Memory 512 KB Flash and 128 KB RAM
 - Integrated 10/100 Mbps Ethernet MAC
-- Dedicated DMA interface for direct access to the entire system RAM
-- Industry-standard RMII/MII interface to PHY
+- RMII/MII interface to PHY
 - Full speed USB, CAN 2.0B
+- Dedicated DMA interface for direct access to the entire system RAM
 
-### NU32
+Boards:
 
-- [wiki](https://hades.mech.northwestern.edu/index.php/NU32)
+- [NU32](https://hades.mech.northwestern.edu/index.php/NU32)
+- [dm320004-2](https://www.microchip.com/en-us/development-tool/dm320004-2) 
 
-### dm320004-2
+    - PIC32 Ethernet Starter Kit II features a socket that can accommodate various 10/100 Ethernet transceiver (RJ-45) PHY Daughter Boards for prototyping and development.
 
-The PIC32 Ethernet Starter Kit II provides the easiest and lowest-cost method to experience 10/100 Ethernet development with PIC32 microcontrollers. Combined with Microchip’s free TCP/IP software, this kit gets your project running quickly. The PIC32 microcontroller has an available CAN 2 0b peripheral and USB host/device/OTG. This starter kit features a socket that can accommodate various 10/100 Ethernet transceiver (RJ-45) PHY Daughter Boards for prototyping and development.
+    - Combined with Microchip’s free TCP/IP software, this kit gets your project running quickly.
 
-### HelvePic32 Development Board
+## PIC32MZ2048EFG144 
 
-The HelvePic32 has the size 42x72 mm, which is a standard module size. All parts are through hole as demonstrated in this 3D simulation. It can be soldered within an hour by an inexperienced new-comer to electronics.
+- 252 MHz/415 DMIPS performance
+- Program Memory 2048 KB Flash and 512 KB RAM
+- I2C:5 and UART:6
+- Full speed USB (Harmony)
 
-The board is programmed using MPIDE, similar to the Arduino IDE and the Arduino code can be used in 99% of the cases.
+Boards:
 
-- [projects](https://www.helvepic32.org/projects/)
-- 
+- Piotr's prototype.
