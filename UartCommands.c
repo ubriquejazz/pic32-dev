@@ -33,14 +33,14 @@ void UART_CMD_API_execCommand(void)
             {
                 CANAPPAPI_RequestToReadObject(LOCAL_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address,rxUartCommand.node_id);
+                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
             }
             else
             {   // FPGA register
                 rxUartCommand.address = rxUartCommand.address - BASE_ADDRESS_FPGA_REGISTERS;
                 CANAPPAPI_RequestToReadObject(FPGA_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address,rxUartCommand.node_id);
+                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
             }
             break;
         default:
@@ -55,5 +55,4 @@ void UART_CMD_API_execCommand(void)
             CANAPPAPI_enableCANMonitor(toggleCanMonitor);
             break;
     }
-
 }
