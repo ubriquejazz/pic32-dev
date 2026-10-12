@@ -1,9 +1,9 @@
-#ifndef CANAPPLAYER_H
-#define CANAPPLAYER_H
+#ifndef CANAPP_LAYER_H
+#define CANAPP_LAYER_H
 
 #include "global.h"
 #include "CANfunctions.h"
-#include "CANObjectDictionary.h"
+#include "ObjectDictionary.h"
 
 #define COMMS_BOARD 1
 #define DIGITAL_BOARD 2
@@ -35,14 +35,14 @@ typedef enum {
 //    TX_BUFFER_FULL_ERROR
 //} canAppErrors_e;
 
-BOOL CANAPPAPI_RequestToReadObject (objectLocation_e, uint16_t, uint8_t, uint32_t);
+BOOL CANAPP_RequestToReadObject (objectLocation_e, uint16_t, uint8_t, uint32_t);
 
-BOOL CANAPPAPI_RequestToWriteObject (objectLocation_e, uint16_t, uint8_t, uint32_t, uint32_t);
+BOOL CANAPP_RequestToWriteObject (objectLocation_e, uint16_t, uint8_t, uint32_t, uint32_t);
 
-BOOL CANAPPAPI_ProcessRxMessage(errorList_e *error);
+BOOL CANAPP_ProcessRxMessage(errorList_e *error);
 
-void CANAPPAPI_enableCANMonitor(BOOL enable);
+void CANAPP_enableCANMonitor(BOOL enable);
 
-void CANAPPAPI_enableDisplayReadCommand(uint16_t address, uint32_t node_id);
+void CANAPP_enableDisplayReadCommand(uint16_t address, uint32_t node_id);
 
 #endif //CANAPPLAYER_H

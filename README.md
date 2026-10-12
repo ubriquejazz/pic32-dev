@@ -1,16 +1,21 @@
 # pic32-dev
 
-External libraries used in and with the project.
+APP layer (CANopen)
 
-- ZLIB came from the github and was cloned using:
+- CANAPP_RequestToReadObject, ToWrite
+- CANAPP_ProcessRxMessage
 
-```
-    $ git clone https://github.com/madler/zlib.git
-    $ ./configure; make test
-```
+Object Dictionary
 
-- Unity for command format (http://www.throwtheswitch.org)
+ - OBJECTDICT_API_setObject
+ - OBJECTDICT_API_getObject
 
+ CAN functions
+
+ - CAN1ProcessRxMessages
+ - CAN1TxMessage
+
+---
 
 ## PIC32MX795
 
@@ -26,10 +31,6 @@ Boards:
 - [NU32](https://hades.mech.northwestern.edu/index.php/NU32)
 - [dm320004-2](https://www.microchip.com/en-us/development-tool/dm320004-2) 
 
-    - PIC32 Ethernet Starter Kit II features a socket that can accommodate various 10/100 Ethernet transceiver (RJ-45) PHY Daughter Boards for prototyping and development.
-
-    - Combined with Microchip’s free TCP/IP software, this kit gets your project running quickly.
-
 ## PIC32MZ2048EFG144 
 
 - 252 MHz/415 DMIPS performance
@@ -37,6 +38,16 @@ Boards:
 - I2C:5 and UART:6
 - Full speed USB (Harmony)
 
-Boards:
+## External
 
-- Piotr's prototype.
+
+External libraries used in and with the project.
+
+- ZLIB came from the github and was cloned using:
+
+```
+    $ git clone https://github.com/madler/zlib.git
+    $ ./configure; make test
+```
+
+- Unity for command format (http://www.throwtheswitch.org)

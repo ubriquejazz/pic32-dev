@@ -1,5 +1,5 @@
 #include "UartCommands.h"
-#include "CANObjectDictionary.h"
+#include "ObjectDictionary.h"
 
 static rxUartCommand_t rxUartCommand;
 
@@ -18,29 +18,29 @@ void UART_CMD_API_execCommand(void)
         case 'W':
             if (rxUartCommand.address < BASE_ADDRESS_FPGA_REGISTERS)
             {
-                CANAPPAPI_RequestToWriteObject(LOCAL_OBJECT, 
+                CANAPP_RequestToWriteObject(LOCAL_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id, rxUartCommand.value);
             }
             else
             {   // FPGA register
                 rxUartCommand.address = rxUartCommand.address - BASE_ADDRESS_FPGA_REGISTERS;
-                CANAPPAPI_RequestToWriteObject(FPGA_OBJECT, 
+                CANAPP_RequestToWriteObject(FPGA_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id, rxUartCommand.value);
             }
             break;
         case 'R':
             if (rxUartCommand.address < BASE_ADDRESS_FPGA_REGISTERS)
             {
-                CANAPPAPI_RequestToReadObject(LOCAL_OBJECT, 
+                CANAPP_RequestToReadObject(LOCAL_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
+                CANAPP_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
             }
             else
             {   // FPGA register
                 rxUartCommand.address = rxUartCommand.address - BASE_ADDRESS_FPGA_REGISTERS;
-                CANAPPAPI_RequestToReadObject(FPGA_OBJECT, 
+                CANAPP_RequestToReadObject(FPGA_OBJECT, 
                     rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPPAPI_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
+                CANAPP_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
             }
             break;
         default:
@@ -52,7 +52,7 @@ void UART_CMD_API_execCommand(void)
             {
                 toggleCanMonitor = TRUE; 
             }
-            CANAPPAPI_enableCANMonitor(toggleCanMonitor);
+            CANAPP_enableCANMonitor(toggleCanMonitor);
             break;
     }
 }
