@@ -129,11 +129,12 @@ typedef union {
 
 } CANRxMessageBuffer;
 
-void CAN1Initialise(void);
+void CAN1_Initialise(void);
+void CAN2_Initialise(void);
 
-BOOL CAN1TxMessage(CANTxMessageBuffer *);
+BOOL CAN1_TxMessage(CANTxMessageBuffer *);
 
-BOOL CAN1ProcessRxMessages(CANRxMessageBuffer **);
+BOOL CAN1_ProcessRxMessages(CANRxMessageBuffer **);
 
 uint16_t CAN1_getNodeId(void);
 

@@ -24,7 +24,7 @@ typedef struct {
 #define ADDRESS_STR_LENGTH 9    // includes NUL for end of string
 #define VALUE_STR_LENGTH 9      // includes NUL for end of string
 
-rxUartCommand_t* UART_CMD_API_getCommandBuffer(void);
-void UART_CMD_API_execCommand(void);
+rxUartCommand_t* UART_CMD_getCommandBuffer(void);
+void UART_CMD_execCommand(void);
 
 #endif 

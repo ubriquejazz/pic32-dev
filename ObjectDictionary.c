@@ -1,8 +1,8 @@
 #include "ObjectDictionary.h"
 
-static BOOL accessFPGARegister(uint32_t address, uint32_t data, BOOL readAccess);
+static BOOL accessFPGARegister(uint32_t, uint32_t, BOOL); // not implemented
 
-objectDictionary_t objectDictionary[]=
+static objectDictionary_t objectDictionary[]=
 {
     { 0, VALUE, NULL},                  // MODULE_TYPE
     { 0, VALUE, NULL},                  // ERROR_REG
@@ -27,7 +27,8 @@ objectDictionary_t objectDictionary[]=
     { 0, VALUE, &accessFPGARegister}    // FPGA_REG   
 };
 
-BOOL OBJECTDICT_API_setObject(uint32_t objectIndex, uint32_t value)
+BOOL 
+OBJECTDICT_setObject(uint32_t objectIndex, uint32_t value)
 {
     BOOL success;
 
@@ -47,7 +48,8 @@ BOOL OBJECTDICT_API_setObject(uint32_t objectIndex, uint32_t value)
     return success;
 }
 
-objectDictionary_t* OBJECTDICT_API_getObject(uint32_t objectIndex)
+objectDictionary_t* 
+OBJECTDICT_getObject(uint32_t objectIndex)
 {
     objectDictionary_t* pObjectDictionaryItem;
 /*
@@ -76,7 +78,8 @@ else */
     return pObjectDictionaryItem;
 }
 
-static BOOL accessFPGARegister(uint32_t address, uint32_t data, BOOL readAccess)
+static BOOL 
+accessFPGARegister(uint32_t address, uint32_t data, BOOL readAccess)
 {
     BOOL success = FALSE;
     uint16_t readValue; 

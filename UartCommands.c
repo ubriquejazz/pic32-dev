@@ -2,16 +2,16 @@
 #include "ObjectDictionary.h"
 
 static rxUartCommand_t rxUartCommand;
-
 static BOOL toggleCanMonitor = FALSE;
 
 rxUartCommand_t* 
-UART_CMD_API_getCommandBuffer(void)
+UART_CMD_getCommandBuffer(void)
 {
     return &rxUartCommand;
 }
 
-void UART_CMD_API_execCommand(void)
+void 
+UART_CMD_execCommand(void)
 {
     switch (rxUartCommand.command)
     {

@@ -20,7 +20,7 @@ typedef struct {
 }objectDictionary_t;
 
 // The enum should match the entries to objectDictionary[] defined
-// in CANObjectDictionary.c
+// in ObjectDictionary.c
 typedef enum {
     MODULE_TYPE_REG = 0,    // 0
     ERROR_REG,              // 1
@@ -81,8 +81,8 @@ typedef enum {
     ONE_WIRE_BUS_ERROR   
 } errorCaregory_e;
 
-BOOL OBJECTDICT_API_setObject(uint32_t, uint32_t);
+BOOL OBJECTDICT_setObject(uint32_t, uint32_t);
 
-objectDictionary_t* OBJECTDICT_API_getObject(uint32_t);
+objectDictionary_t* OBJECTDICT_getObject(uint32_t);
 
 #endif

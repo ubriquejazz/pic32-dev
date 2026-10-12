@@ -1,5 +1,3 @@
-#include <p32xxxx.h>
-
 #include "CANAppLayer.h"
 #include "ObjectDictionary.h"
 
@@ -12,7 +10,8 @@ static BOOL enableCanToUart = FALSE;
 static BOOL enableDisplayReadCommand = FALSE;
 static uartReadRequest_t uartReadRequest;
 
-void _nibbleToHexAscii(uint8_t number, uchar_t*buffer, uint8_t numberOfNibbles)
+static void 
+_nibbleToHexAscii(uint8_t number, uchar_t*buffer, uint8_t numberOfNibbles)
 {
     switch (*buffer)
     {
@@ -40,7 +39,8 @@ void _nibbleToHexAscii(uint8_t number, uchar_t*buffer, uint8_t numberOfNibbles)
    
 }
 
-static void canRxMessageToString(CANRxMessageBuffer *message, uchar_t **stringBuffer)
+static void 
+canRxMessageToString(CANRxMessageBuffer *message, uchar_t **stringBuffer)
 {
     uchar_t* pStringBuffer;
 
@@ -70,7 +70,8 @@ static void canRxMessageToString(CANRxMessageBuffer *message, uchar_t **stringBu
     *pStringBuffer ='\n';
 }
 
-BOOL CANAPP_RequestToReadObject (objectLocation_e objectType, 
+BOOL 
+CANAPP_RequestToReadObject (objectLocation_e objectType, 
     uint16_t objectIndex, uint8_t objectsubIndex, uint32_t nodeId)
 {
 	CANTxMessageBuffer message;
@@ -105,13 +106,14 @@ BOOL CANAPP_RequestToReadObject (objectLocation_e objectType,
     	message.data[5]       = 0x0;
     	message.data[6]       = 0x0;
     	message.data[7]       = 0x0;		
-    	success = CAN1TxMessage(&message); 
+    	success = CAN1_TxMessage(&message); 
 	}
 
 	return success;	
 }
 
-BOOL CANAPP_RequestToWriteObject (objectLocation_e objectType,
+BOOL 
+CANAPP_RequestToWriteObject (objectLocation_e objectType,
     uint16_t objectIndex, uint8_t objectsubIndex, uint32_t nodeId, uint32_t data)
 {
 	CANTxMessageBuffer message;
@@ -147,12 +149,13 @@ BOOL CANAPP_RequestToWriteObject (objectLocation_e objectType,
     	message.data[6]       = (uint8_t)((data & 0x00FF0000) >> 16);
     	message.data[7]       = (uint8_t)((data & 0xFF000000) >> 24);
 
-    	success = CAN1TxMessage(&message); 
+    	success = CAN1_TxMessage(&message); 
     }	
 	return success;	
 }
 
-BOOL CANAPP_RequestToSendHeartBeat (void)
+BOOL 
+CANAPP_RequestToSendHeartBeat (void)
 {
 	CANTxMessageBuffer message;
 	BOOL success;
@@ -164,25 +167,28 @@ BOOL CANAPP_RequestToSendHeartBeat (void)
     message.msgEID.EID  = CAN1_getNodeId();		
 	message.msgEID.IDE 	= 1;			
 	message.msgEID.DLC 	= 0x8;				
-    pObjectDictionary = OBJECTDICT_API_getObject(ERROR_REG);
+    pObjectDictionary = OBJECTDICT_getObject(ERROR_REG);
     message.messageWord[3] = pObjectDictionary->value;	
-	success = CAN1TxMessage(&message); 	
+	success = CAN1_TxMessage(&message); 	
 	return success;	
 }
 
-void CANAPP_enableCANMonitor(BOOL enable)
+void 
+CANAPP_enableCANMonitor(BOOL enable)
 {
     enableCanToUart = enable;
 }
 
-void CANAPP_enableDisplayReadCommand(uint16_t address, uint32_t node_id)
+void 
+CANAPP_enableDisplayReadCommand(uint16_t address, uint32_t node_id)
 {
     uartReadRequest.address = address; 
     uartReadRequest.node_id = node_id;
     enableDisplayReadCommand = TRUE;
 }
 
-BOOL CANAPP_ProcessRxMessage(errorList_e *error)
+BOOL 
+CANAPP_ProcessRxMessage(errorList_e *error)
 { 
     CANRxMessageBuffer *message;
     BOOL success;   
@@ -192,7 +198,7 @@ BOOL CANAPP_ProcessRxMessage(errorList_e *error)
     success = TRUE;
     *error = NO_ERROR;
 
-    if (CAN1ProcessRxMessages(&message) ) 
+    if (CAN1_ProcessRxMessages(&message) ) 
     {
         pTxBuffer = txBuffer;
         if (enableCanToUart)    
