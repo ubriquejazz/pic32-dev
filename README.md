@@ -2,20 +2,19 @@
 
 APP layer (CANopen)
 
-- CANAPP_RequestToReadObject, ToWrite
+- CANAPP_Request to read or write Object.
 - CANAPP_ProcessRxMessage
 
 Object Dictionary
 
- - OBJECTDICT_API_setObject
- - OBJECTDICT_API_getObject
+ - OBJECTDICT_API_set or get Object.
 
  CAN functions
 
  - CAN1ProcessRxMessages
  - CAN1TxMessage
 
----
+...
 
 ## PIC32MX795
 

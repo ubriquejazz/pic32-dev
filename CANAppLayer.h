@@ -21,10 +21,10 @@ typedef enum {
 } cobId_e;
 
 // SDO commands
-#define CMD_SDO_READ 0x40
-#define CMD_SDO_READ_RESPONSE 0x43
-#define CMD_SDO_WRITE 0x23
-#define CMD_SDO_WRITE_RESPONSE 0x20
+#define CMD_SDO_READ            0x40
+#define CMD_SDO_READ_RESPONSE   0x43
+#define CMD_SDO_WRITE           0x23
+#define CMD_SDO_WRITE_RESPONSE  0x20
 #define TX_MESSAGE_QUEUE_SIZE 1
 
 //typedef enum {

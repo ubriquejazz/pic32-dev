@@ -12,20 +12,16 @@
 #define FIFO_0 0   // FIFO 0 for SDO Tx to Server
 #define FIFO_1 1   // FIFO 1 for SDO Tx to Client
 #define FIFO_2 2   // FIFO 2 for SDO Rx from Server
-#define FIFO_3 3  // FIFO 3 for SDO Rx from Client
+#define FIFO_3 3   // FIFO 3 for SDO Rx from Client
 
 #define SDO_RX_FROM_CLIENT_MSG_BUFFERS 7
 #define SDO_TX_TO_SERVER_MSG_BUFFERS 7
 
 // CAN FIFO size (actual size is number + 1)
-#define CAN1_TOTAL_NUMBER_OF_SDO_MESSAGE_BUFFERS 
-            2 + SDO_RX_FROM_CLIENT_MSG_BUFFERS + SDO_TX_TO_SERVER_MSG_BUFFERS
-#define CAN1_TOTAL_MSG_BUFFERS 
-            CAN1_TOTAL_NUMBER_OF_SDO_MESSAGE_BUFFERS
-
-#define CAN1_SIZE_OF_FIFO_MESSAGE_BUFFER 16
-#define CAN1_FIFO_SIZE 
-        CAN1_TOTAL_MSG_BUFFERS * CAN1_SIZE_OF_FIFO_MESSAGE_BUFFER / 4 // using 32-bit word
+#define CAN1_TOTAL_SDO_MESSAGE_BUFFERS      2 + SDO_RX_FROM_CLIENT_MSG_BUFFERS + SDO_TX_TO_SERVER_MSG_BUFFERS
+#define CAN1_TOTAL_MSG_BUFFERS              CAN1_TOTAL_SDO_MESSAGE_BUFFERS
+#define CAN1_SIZE_OF_FIFO_MESSAGE_BUFFER    16
+#define CAN1_FIFO_SIZE 16 * CAN1_SIZE_OF_FIFO_MESSAGE_BUFFER / 4 // using 32-bit word
 
 // CAN FILTERS
 #define SDO_CLIENT_FILTER SDO_CLIENT_COBID
@@ -40,7 +36,7 @@ typedef	struct
 {
 	unsigned SID:11;
 	unsigned :21;
-}CAN_TX_MSG_SID;        // CAN TX Message Standard ID. This value should be between 0x0 - 0x7FF
+} CAN_TX_MSG_SID;        // CAN TX Message Standard ID. This value should be between 0x0 - 0x7FF
 
 typedef struct 
 {
@@ -74,7 +70,7 @@ typedef struct
 	unsigned SRR:1;
 	unsigned :2;
 
-}CAN_MSG_EID;
+} CAN_MSG_EID;
 
 typedef union {
 
@@ -90,11 +86,10 @@ typedef union {
 		uchar_t data[8];
 	};
 
-    // This is CAN TX message organized as a set of 32 bit 
-    // words.
+    // This is CAN TX message organized as a set of 32 bit words.
 	uint32_t messageWord[4];
 
-}CANTxMessageBuffer;
+} CANTxMessageBuffer;
 
 typedef	struct 
 {
@@ -108,7 +103,7 @@ typedef	struct
     // valid only if the Timestamping is enabled.
 	unsigned CMSGTS:16;
 
-}CAN_RX_MSG_SID;
+} CAN_RX_MSG_SID;
 
 typedef union {
 
@@ -129,11 +124,10 @@ typedef union {
     // be read from a Data-Only type of CAN RX Channel.
     uchar_t dataOnlyMsgData[8];
 
-    // This is CAN RX message organized as a set of 32 bit 
-    // words.
+    // This is CAN RX message organized as a set of 32 bit  words.
 	uint32_t messageWord[4];
 
-}CANRxMessageBuffer;
+} CANRxMessageBuffer;
 
 void CAN1Initialise(void);
 
