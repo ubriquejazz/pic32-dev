@@ -4,13 +4,6 @@
 #include "global.h"
 
 #define NULMBER_OF_COMMAND_ARGUMENTS 4
-
-typedef enum {
-    UART_CMD_COMMAND=0, 
-    UART_CMD_NODE_ID, 
-    UART_CMD_ADDRESS, 
-    UART_CMD_VALUE} 
-commandArguments_e;
  
 typedef struct {
     uint8_t command;

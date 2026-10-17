@@ -11,7 +11,7 @@ static BOOL enableDisplayReadCommand = FALSE;
 static uartReadRequest_t uartReadRequest;
 
 static void 
-_nibbleToHexAscii(uint8_t number, uchar_t*buffer, uint8_t numberOfNibbles)
+_nibblesToHexAscii(uint8_t number, uchar_t*buffer, uint8_t numberOfNibbles)
 {
     switch (*buffer)
     {

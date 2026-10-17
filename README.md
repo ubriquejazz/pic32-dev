@@ -1,18 +1,21 @@
 # pic32-dev
 
-APP layer (CANopen)
+## can_monitor
 
-- CANAPP_Request to read or write Object.
-- CANAPP_ProcessRxMessage
+This is a firmware framework designed for PIC32 that implements a CANopen Application Layer and a real-time CAN monitoring interface.
 
-Object Dictionary
+- Supports reading and writing objects across local registers and FPGA targets using Service Data Object (SDO) requests.
+- Captures incoming CAN messages, converts them to ASCII string representations, and streams them over UART for monitoring and debugging.  
+- Features a structured object dictionary to manage device configurations, ADC channels, and error status registers.
+- Periodically transmits device **heartbeats** incorporating system error register data.
 
- - OBJECTDICT_API_set or get Object.
+**`CANAppLayer.c`**: Implements the CANopen application layer logic, including sending SDO read/write requests, transmitting heartbeats, filtering messages, and bridging CAN data to UART
 
- CAN functions
+**`ObjectDictionary.c`**: Manages the local device's object dictionary, containing standard registers, ADC channels, error flags, and helper functions to get or set register values.
 
- - CAN1ProcessRxMessages
- - CAN1TxMessage
+**`CANfunctions.h`**: Defines low-level CAN message buffer structures (standard and extended IDs), FIFO queues, operation modes, and core function prototypes for the CAN interface
+
+**`Uart.h` / `UartCommands.h`**: Referenced by `main.c` for handling UART communication and executing incoming commands (implied by includes)
 
 ...
 
