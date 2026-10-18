@@ -83,6 +83,8 @@ typedef enum {
 
 BOOL OBJECTDICT_setObject(uint32_t, uint32_t);
 
+BOOL OBJECTDICT_errorHandler(uint32_t, uint32_t);
+
 objectDictionary_t* OBJECTDICT_getObject(uint32_t);
 
 #endif

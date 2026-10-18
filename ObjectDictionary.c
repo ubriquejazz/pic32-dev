@@ -28,6 +28,14 @@ static objectDictionary_t objectDictionary[]=
 };
 
 BOOL 
+OBJECTDICT_errorHandler(uint32_t objectIndex, uint32_t value)
+{
+    BOOL success;
+
+    return TRUE;
+}
+
+BOOL 
 OBJECTDICT_setObject(uint32_t objectIndex, uint32_t value)
 {
     BOOL success;
