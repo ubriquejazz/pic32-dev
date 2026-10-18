@@ -5,10 +5,6 @@
 #include "CANfunctions.h"
 #include "ObjectDictionary.h"
 
-#define COMMS_BOARD 1
-#define DIGITAL_BOARD 2
-#define POWER_BOARD 3
-
 // COBID Should have a min difference of 0x80
 // The order of COBID should not be changed 
 typedef enum {

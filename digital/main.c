@@ -1,5 +1,5 @@
 #include "HardwareSetup.h"
-#include "Adc.h"
+#include "adc.h"
 #include "PwrStateMachine.h"
 #include "ObjectDictionary.h"
 #include "version.h"
@@ -14,11 +14,11 @@ int32_t main(void)
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 
     HWAPI_InitialiseHardware();
-    ADC_InitialiseADC();
+    ADC_Initialise();
     HWAPI_InitialiseInterfaces();
-
     INTEnableInterrupts();
-    OBJECTDICT_setObject(MODULE_TYPE_REG, DIGITAL_BOARD_01);
+
+    OBJECTDICT_setObject(MODULE_TYPE_REG, DIGITAL_BOARD);
     OBJECTDICT_setObject(SW_REV_REG, SOFTWARE_REVISION);  
     
     HWAPI_CheckIfServiceMode();      
@@ -29,10 +29,13 @@ int32_t main(void)
 
         if (HWAPI_IsHalfSecondUp() == TRUE)
         {         
-            CANAPPAPI_RequestToSendHeartBeat(CAN_1_AND_2);
+            CANAPP_RequestToSendHeartBeat(CAN_1_AND_2);
             P_SM_ServiceStateMachine();
         }    
         
-        CANAPPAPI_ProcessBridgeRxMessage(&error);
+        if ( !CANAPP_ProcessRxMessage(&error) )
+        {
+            OBJECTDICT_errorHandler(CAN_ERROR, error);
+        }       
     }       
 }

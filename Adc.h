@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-void ADC_InitialiseADC(void);
+void ADC_Initialise(void);
 BOOL ADC_ProcessAdcSamples (void);
 
 

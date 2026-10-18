@@ -4,6 +4,10 @@
 //#include <sys\kmem.h>
 #include "types.h"
 
+#define COMMS_BOARD     1
+#define DIGITAL_BOARD   2
+#define POWER_BOARD     3
+
 #define NULL (void*) 0
 
 #define BIT_31                       (1 << 31)
