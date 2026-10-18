@@ -1,5 +1,6 @@
 #include "HardwareSetup.h"
 #include "Adc.h"
+#include "PwrStateMachine.h"
 #include "ObjectDictionary.h"
 #include "version.h"
 
