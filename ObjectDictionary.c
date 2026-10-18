@@ -28,17 +28,9 @@ static objectDictionary_t objectDictionary[]=
 };
 
 BOOL 
-OBJECTDICT_errorHandler(uint32_t objectIndex, uint32_t value)
-{
-    BOOL success;
-
-    return TRUE;
-}
-
-BOOL 
 OBJECTDICT_setObject(uint32_t objectIndex, uint32_t value)
 {
-    BOOL success;
+    BOOL success = FALSE;
 
     if ( (objectIndex <= END_OF_OBJECT_LIST) )        // local register
     {
@@ -49,9 +41,26 @@ OBJECTDICT_setObject(uint32_t objectIndex, uint32_t value)
         objectDictionary[objectIndex].value = value;
         success = TRUE;
     }
-    else
+    return success;
+}
+
+BOOL 
+OBJECTDICT_errorHandler(uint32_t objectIndex, uint32_t value)
+{
+    BOOL success = FALSE;
+    uint32_t currentErrorReg;
+
+    // Check if the object index is valid within the object dictionary list
+    if (objectIndex <= END_OF_OBJECT_LIST)
     {
-        success = FALSE;
+        // Retrieve the current error register value
+        currentErrorReg = objectDictionary[ERROR_REG].value;
+
+        // Combine the existing error flags with the new error value/bitmask
+        uint32_t updatedErrorReg = currentErrorReg | value;
+
+        // Update the ERROR_REG object using the dictionary set function
+        success = OBJECTDICT_setObject(ERROR_REG, updatedErrorReg);
     }
     return success;
 }

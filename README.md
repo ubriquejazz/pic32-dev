@@ -13,11 +13,13 @@ This is a firmware framework designed for PIC32 that implements a CANopen Applic
 
 **`ObjectDictionary.c`**: Manages the local device's object dictionary, containing standard registers, ADC channels, error flags, and helper functions to get or set register values.
 
-**`CANfunctions.h`**: Defines low-level CAN message buffer structures (standard and extended IDs), FIFO queues, operation modes, and core function prototypes for the CAN interface
+## Low level drivers
 
-**`Uart.h` / `UartCommands.h`**: Referenced by `main.c` for handling UART communication and executing incoming commands (implied by includes)
+- **`i2c.h` & `adc.h`**: Interfaces for managing I2C port expanders (such as TCA9555 slots) and ADC initialization/sampling.
 
-...
+- **`CANfunctions.h`**: Defines low-level CAN message buffer structures (standard and extended IDs), FIFO queues, operation modes, and core function prototypes for the CAN interface
+
+- **`uart.h` / `UartCommands.h`**: Referenced by `main.c` for handling UART communication and executing incoming commands.
 
 ## PIC32MX795
 
