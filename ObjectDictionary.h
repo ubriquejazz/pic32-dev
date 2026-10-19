@@ -17,7 +17,7 @@ typedef struct {
     uint32_t value;
     objectType_e type; 
     pObjectDictionaryFunction function;
-}objectDictionary_t;
+} objectDictionary_t;
 
 // The enum should match the entries to objectDictionary[] defined
 // in ObjectDictionary.c
@@ -55,31 +55,6 @@ typedef enum {
 //EEPROM REGISTERS 
 #define START_EEPROM_REGISTERS  0xE00
 #define END_EEPROM_REGISTERS    0xFFF
-
-// ERROR REGISTER Bits
-#define ERROR_REG_CAN_BIT       1
-#define ERROR_REG_FPGA_BIT      2
-#define ERROR_REG_EEPROM_BIT    4
-#define ERROR_REG_TEMPERATURE_BIT 8
-
-typedef enum {
-    NO_ERROR = 0, 
-    INVALID_COBID_ERROR, 
-    INVALID_CMD_ERROR, 
-    INVALID_OBJECT_INDEX_ERROR, 
-    TX_BUFFER_FULL_ERROR,
-    NOT_ENOUGH_SPACE_IN_EEPROM_SCRATCHPAD,
-    FAILED_EEPROM_SCRATCHPAD_VERIFICATION,
-    INVALID_EEPROM_ADDRESS
-} errorList_e;
-
-typedef enum {
-    CAN_ERROR = 0,
-    FPGA_ERROR,
-    ONE_WIRE_EEPROM_ERROR,
-    ONE_WIRE_TEMPERATURE_ERROR, 
-    ONE_WIRE_BUS_ERROR   
-} errorCaregory_e;
 
 BOOL OBJECTDICT_setObject(uint32_t, uint32_t);
 

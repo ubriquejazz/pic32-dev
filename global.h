@@ -43,4 +43,21 @@
 #define BIT_1                        (1 << 1)
 #define BIT_0                        (1 << 0)
 
+typedef enum {
+    NO_ERROR = 0, 
+    INVALID_COBID_ERROR, 
+    INVALID_CMD_ERROR, 
+    INVALID_OBJECT_INDEX_ERROR, 
+    TX_BUFFER_FULL_ERROR,
+    NOT_ENOUGH_SPACE_IN_EEPROM_SCRATCHPAD,
+    FAILED_EEPROM_SCRATCHPAD_VERIFICATION,
+    INVALID_EEPROM_ADDRESS
+} errorList_e;
+
+typedef enum {
+    CAN_ERROR = 0,
+    FPGA_ERROR,
+    ONE_WIRE_BUS_ERROR   
+} errorCaregory_e;
+
 #endif
