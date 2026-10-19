@@ -1,5 +1,5 @@
-#include "hardwareSetup.h"
-#include "spiOne.h"
+#include "HardwareSetup.h"
+#include "SpiOne.h"
 #include "uart.h"
 
 #define SMM_NODE_ID 8

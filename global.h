@@ -8,6 +8,11 @@
 #define DIGITAL_BOARD   2
 #define POWER_BOARD     3
 
+#define CAN_1    0
+#define CAN_2    1
+
+#define POWER_UP_MSG_REG    0xAA
+
 #define NULL (void*) 0
 
 #define BIT_31                       (1 << 31)
@@ -59,5 +64,13 @@ typedef enum {
     FPGA_ERROR,
     ONE_WIRE_BUS_ERROR   
 } errorCaregory_e;
+
+typedef enum {
+    PSU_TRAY_BOARD_01 = 0,
+    COM_BOARD_01,
+    DIGITAL_BOARD_01,
+    POWER_BOARD_01,
+    AUX_BOARD_01
+} CANBoardTypes_e;
 
 #endif
