@@ -8,6 +8,11 @@
 
 errorList_e error;
 
+void HEARTBEAT_ProcessHeartBeats(void)
+{
+    ;
+}
+
 int32_t main(void)
 {		
     SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);

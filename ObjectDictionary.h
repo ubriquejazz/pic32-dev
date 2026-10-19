@@ -11,12 +11,12 @@ objectType_e;
 
 typedef enum {LOCAL_OBJECT, FPGA_OBJECT} objectLocation_e;
 
-typedef BOOL (*pObjectDictionaryFunction) (uint32_t, uint32_t, BOOL);
+typedef BOOL (*pObjectFunc) (uint32_t, uint32_t, BOOL);
 
 typedef struct {
-    uint32_t value;
-    objectType_e type; 
-    pObjectDictionaryFunction function;
+    uint32_t        value;
+    objectType_e    type; 
+    pObjectFunc     function;
 } objectDictionary_t;
 
 // The enum should match the entries to objectDictionary[] defined
@@ -50,7 +50,7 @@ typedef enum {
 
 // FPGA REGISTERS
 #define BASE_ADDRESS_FPGA_REGISTERS 0x10000
-//#define END_FPGA_REGISTERS 0x1FFF
+#define END_ADDRESS_FPGA_REGISTERS  0x1FFF
 
 //EEPROM REGISTERS 
 #define START_EEPROM_REGISTERS  0xE00
