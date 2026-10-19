@@ -14,7 +14,16 @@ static const uint8_t PP = 0x02;         // page program
 static const uint8_t SE = 0xD8;         // sector erase
 static const uint8_t BE = 0xC7;
 
-flashStatusRegister_t flashStatusRegister;
+union {
+	struct {
+        unsigned WRITE_IN_PROGRESS_BIT:1;
+        unsigned WRITE_ENABLE_LATCH:1;
+        unsigned BLOCK_PROTECT_BITS:3;
+        unsigned :2;
+        unsigned STATUS_REGISTER_WRITE_PROTECT:1;
+    };
+    uint8_t byte;
+} flashStatusRegister;
 
 /* Private */
 
@@ -24,7 +33,7 @@ static uint8_t txBuffer[RX_BUFFER_SIZE];
 static void cmdWriteEnable(void)
 {
     txBuffer[0] = WREN;
-    SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, 1);
+    SPIOne_TxRxBuffer(txBuffer, rxBuffer, 1);
 }
 
 static BOOL 
@@ -38,7 +47,7 @@ cmdProgramPage(uint32_t flashAddress, uint32_t numberOfBytes)
         txBuffer[1] = (uint8_t) ((flashAddress & 0x00FF0000) >> 16);
         txBuffer[2] = (uint8_t) ((flashAddress & 0x0000FF00) >> 8);
         txBuffer[3] = (uint8_t) (flashAddress & 0xFF);
-        SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, numberOfBytes+OFFSET_BEGIN_DATA);
+        SPIOne_TxRxBuffer(txBuffer, rxBuffer, numberOfBytes+OFFSET_BEGIN_DATA);
         success = TRUE;
     }
     else
@@ -51,8 +60,8 @@ cmdProgramPage(uint32_t flashAddress, uint32_t numberOfBytes)
 static void cmdReadStatusRegister(void)
 {
     txBuffer[0] = RDSR;
-    SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, 2);
-    while (!(SPIOne_API_IsTxComplete()))
+    SPIOne_TxRxBuffer(txBuffer, rxBuffer, 2);
+    while (!(SPIOne_IsTxComplete()))
     {
         ;
     }
@@ -64,20 +73,20 @@ static void cmdWriteStatusRegister(void)
     cmdWriteEnable();
     txBuffer[0] = WRSR;
     txBuffer[1] = flashStatusRegister.byte;
-    SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, 2);
+    SPIOne_TxRxBuffer(txBuffer, rxBuffer, 2);
 }
 
 static void cmdBulkErase(void)
 {
     cmdWriteEnable();
     txBuffer[0] = BE;
-    SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, 1);
+    SPIOne_TxRxBuffer(txBuffer, rxBuffer, 1);
 }
 
 /* Public */
 
 BOOL 
-XILFLASH_API_EraseFlash(void)
+XILFLASH_EraseFlash(void)
 {
     BOOL success;
 
@@ -93,7 +102,7 @@ XILFLASH_API_EraseFlash(void)
 }
 
 BOOL 
-XILFLASH_API_ReadDataBytes(uint32_t flashAddress, uint32_t numberOfBytes)
+XILFLASH_ReadDataBytes(uint32_t flashAddress, uint32_t numberOfBytes)
 {
     BOOL success;
     
@@ -107,11 +116,11 @@ XILFLASH_API_ReadDataBytes(uint32_t flashAddress, uint32_t numberOfBytes)
             txBuffer[1] = (uint8_t) ((flashAddress & 0x00FF0000) >> 16);
             txBuffer[2] = (uint8_t) ((flashAddress & 0x0000FF00) >> 8);
             txBuffer[3] = (uint8_t) (flashAddress & 0xFF);
-            while (!(SPIOne_API_IsTxComplete()))
+            while (!(SPIOne_IsTxComplete()))
             {
                 ;
             }
-            SPIOne_API_TxRxBuffer(txBuffer, rxBuffer, numberOfBytes+OFFSET_BEGIN_DATA);
+            SPIOne_TxRxBuffer(txBuffer, rxBuffer, numberOfBytes+OFFSET_BEGIN_DATA);
             success = TRUE;
         }
         else
@@ -127,7 +136,7 @@ XILFLASH_API_ReadDataBytes(uint32_t flashAddress, uint32_t numberOfBytes)
 }
 
 BOOL 
-XILFLASH_API_WriteDataBytes(uint32_t flashAddress,uint8_t* bufferToTx, uint32_t numberOfBytes)
+XILFLASH_WriteDataBytes(uint32_t flashAddress,uint8_t* bufferToTx, uint32_t numberOfBytes)
 {
     uint32_t loopIndex;
     BOOL success;
@@ -152,19 +161,19 @@ XILFLASH_API_WriteDataBytes(uint32_t flashAddress,uint8_t* bufferToTx, uint32_t 
 }
 
 uint8_t* 
-XILFLASH_API_GetRxBuffer(void)
+XILFLASH_GetRxBuffer(void)
 {
     return (rxBuffer+RX_BUFFER_DATA_OFFSET);
 }
 
 BOOL 
-XILFLASH_API_ReadWriteComplete(void)
+XILFLASH_ReadWriteComplete(void)
 {
-    return (SPIOne_API_IsTxComplete());
+    return (SPIOne_IsTxComplete());
 }
 
 BOOL  
-XILFLASH_API_UnProtectAllSectors(void)
+XILFLASH_UnProtectAllSectors(void)
 {
     BOOL success;
 
@@ -181,7 +190,7 @@ XILFLASH_API_UnProtectAllSectors(void)
 }
 
 BOOL  
-XILFLASH_API_ProtectAllSectors(void)
+XILFLASH_ProtectAllSectors(void)
 {
     BOOL success;
 
@@ -198,7 +207,7 @@ XILFLASH_API_ProtectAllSectors(void)
 }
 
 BOOL 
-XILFLASH_API_Select_Flash(uint32_t flashId)
+XILFLASH_Select_Flash(uint32_t flashId)
 {
     BOOL success;
     

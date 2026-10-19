@@ -1,46 +1,48 @@
 #include "UartCommands.h"
 #include "ObjectDictionary.h"
+#include "CANAppLayer.h"
 
-static rxUartCommand_t rxUartCommand;
+/* Private */
+
+static rxUartCommand_t receivedCmd;
 static BOOL toggleCanMonitor = FALSE;
 
-rxUartCommand_t* 
-UART_CMD_getCommandBuffer(void)
+/* Public */
+
+rxUartCommand_t* UART_CMD_getCommandBuffer(void)
 {
-    return &rxUartCommand;
+    return &receivedCmd;
 }
 
 void 
 UART_CMD_execCommand(void)
 {
-    switch (rxUartCommand.command)
+    switch (receivedCmd.command)
     {
         case 'W':
-            if (rxUartCommand.address < BASE_ADDRESS_FPGA_REGISTERS)
+            if (receivedCmd.address < BASE_ADDRESS_FPGA_REGISTERS)
             {
                 CANAPP_RequestToWriteObject(LOCAL_OBJECT, 
-                    rxUartCommand.address, 0, rxUartCommand.node_id, rxUartCommand.value);
+                    receivedCmd.address, 0, receivedCmd.node_id, receivedCmd.value);
             }
             else
             {   // FPGA register
-                rxUartCommand.address = rxUartCommand.address - BASE_ADDRESS_FPGA_REGISTERS;
+                receivedCmd.address = receivedCmd.address - BASE_ADDRESS_FPGA_REGISTERS;
                 CANAPP_RequestToWriteObject(FPGA_OBJECT, 
-                    rxUartCommand.address, 0, rxUartCommand.node_id, rxUartCommand.value);
+                    receivedCmd.address, 0, receivedCmd.node_id, receivedCmd.value);
             }
             break;
         case 'R':
-            if (rxUartCommand.address < BASE_ADDRESS_FPGA_REGISTERS)
+            if (receivedCmd.address < BASE_ADDRESS_FPGA_REGISTERS)
             {
-                CANAPP_RequestToReadObject(LOCAL_OBJECT, 
-                    rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPP_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
+                CANAPP_RequestToReadObject(LOCAL_OBJECT, receivedCmd.address, 0, receivedCmd.node_id);
+                CANAPP_enableDisplayReadCommand(receivedCmd.address, receivedCmd.node_id);
             }
             else
             {   // FPGA register
-                rxUartCommand.address = rxUartCommand.address - BASE_ADDRESS_FPGA_REGISTERS;
-                CANAPP_RequestToReadObject(FPGA_OBJECT, 
-                    rxUartCommand.address, 0, rxUartCommand.node_id);
-                CANAPP_enableDisplayReadCommand(rxUartCommand.address, rxUartCommand.node_id);
+                receivedCmd.address = receivedCmd.address - BASE_ADDRESS_FPGA_REGISTERS;
+                CANAPP_RequestToReadObject(FPGA_OBJECT, receivedCmd.address, 0, receivedCmd.node_id);
+                CANAPP_enableDisplayReadCommand(receivedCmd.address, receivedCmd.node_id);
             }
             break;
         default:
