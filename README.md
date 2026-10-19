@@ -21,6 +21,12 @@ This is a firmware framework designed for PIC32 that implements a CANopen Applic
 
 - **`uart.h` / `UartCommands.h`**: Referenced by `main.c` for handling UART communication and executing incoming commands.
 
+## smm
+
+The system management module (smm) is designed to act as node ID 8 (SMM_BLADE_01) on a CANopen network, managing system-wide hardware supervision, status monitoring, and firmware updates.
+
+Periodically processes inter-board shadow heartbeats and updates local object dictionary registers to track the status of power, digital and expansion boards.
+
 ## PIC32MX795
 
 - 80 MHz/105 DMIPS performance
