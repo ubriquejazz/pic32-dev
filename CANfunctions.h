@@ -32,6 +32,13 @@
 #define CAN1_INTERRUPT_PRIORITY 5 // should match the priority specified in the CAN1 interrupt handler
 #define CAN1_INTERRUPT_SUB_PRIORITY 1
 
+typedef struct
+{
+    uint16_t nodeId;
+    uint16_t bridgeCanOneAndTwo;
+    uint16_t bridgeCan;
+} CANInit_t;
+
 typedef	struct 
 {
 	unsigned SID:11;
@@ -129,8 +136,8 @@ typedef union {
 
 } CANRxMessageBuffer;
 
-void CAN1_Initialise(void);
-void CAN2_Initialise(void);
+void CAN1_Initialise(CANInit_t *);
+void CAN2_Initialise(CANInit_t *);
 
 BOOL CAN1_TxMessage(CANTxMessageBuffer *);
 
